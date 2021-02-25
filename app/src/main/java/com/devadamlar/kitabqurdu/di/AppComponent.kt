@@ -4,6 +4,7 @@ import com.devadamlar.kitabqurdu.MainActivity
 import com.devadamlar.kitabqurdu.ui.about.AboutFragment
 import com.devadamlar.kitabqurdu.ui.favorites.FavoritesFragment
 import com.devadamlar.kitabqurdu.ui.home.HomeFragment
+import com.devadamlar.kitabqurdu.ui.home.book.BookFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -14,4 +15,5 @@ interface AppComponent {
     fun inject(homeFragment: HomeFragment)
     fun inject(favoritesFragment: FavoritesFragment)
     fun inject(aboutFragment: AboutFragment)
+    fun inject(bookFragment: BookFragment)
 }

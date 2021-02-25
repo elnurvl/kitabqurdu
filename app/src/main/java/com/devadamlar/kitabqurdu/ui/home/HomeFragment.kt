@@ -9,12 +9,16 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.devadamlar.kitabqurdu.ActivityViewModel
 import com.devadamlar.kitabqurdu.App
 import com.devadamlar.kitabqurdu.MainActivity
 import com.devadamlar.kitabqurdu.R
@@ -31,6 +35,8 @@ class HomeFragment : Fragment() {
         viewModelFactory
     }
 
+    private lateinit var activityViewModel: ActivityViewModel
+
     override fun onAttach(context: Context) {
         (requireActivity().applicationContext as App).appComponent.inject(this)
         super.onAttach(context)
@@ -41,6 +47,7 @@ class HomeFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        activityViewModel = ViewModelProvider(requireActivity()).get(ActivityViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val searchText: TextView = root.findViewById(R.id.searchText)
         val searchButton: ImageButton = root.findViewById(R.id.searchButton)
@@ -50,6 +57,8 @@ class HomeFragment : Fragment() {
         val adapter = BooksAdapter(requireContext(), object : BooksAdapter.ItemClickListener {
             override fun onItemClicked(view: View, book: Book) {
                 Log.d("Home", "Selected book: ${book.key}")
+                activityViewModel.selectedBook.onNext(book)
+                goToBook()
             }
 
         })
@@ -74,5 +83,9 @@ class HomeFragment : Fragment() {
                 }
         }
         return root
+    }
+
+    fun goToBook() {
+        findNavController().navigate(R.id.bookFragment)
     }
 }

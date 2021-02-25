@@ -11,7 +11,7 @@ import com.devadamlar.kitabqurdu.R
 import com.devadamlar.kitabqurdu.models.Book
 import com.squareup.picasso.Picasso
 
-class BooksAdapter(context: Context, private val listener: ItemClickListener) : RecyclerView.Adapter<BooksAdapter.BookViewHolder>() {
+class BooksAdapter(val context: Context, private val listener: ItemClickListener) : RecyclerView.Adapter<BooksAdapter.BookViewHolder>() {
 
     var books: List<Book> = emptyList()
 
@@ -26,7 +26,7 @@ class BooksAdapter(context: Context, private val listener: ItemClickListener) : 
         holder.authors.text = book.authorName?.joinToString(", ")
         holder.publisher.text = book.publisher?.get(0)
         Picasso.get()
-            .load("https://covers.openlibrary.org/b/isbn/" + book.coverI + ".jpg")
+            .load(context.getString(R.string.cover_api_url) + book.coverI + ".jpg")
             .placeholder(R.drawable.progress_animation)
             .error(R.drawable.sample_cover)
             .into(holder.thumbnail)

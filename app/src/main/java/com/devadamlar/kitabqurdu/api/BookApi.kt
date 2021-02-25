@@ -2,6 +2,7 @@ package com.devadamlar.kitabqurdu.api
 
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface BookApi {
