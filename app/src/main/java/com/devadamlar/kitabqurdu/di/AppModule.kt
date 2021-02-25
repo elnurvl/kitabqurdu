@@ -24,10 +24,9 @@ class AppModule {
     }
 
     @Provides @Singleton
-    fun provideApi(gson: Gson, client: OkHttpClient): BookApi {
+    fun provideApi(gson: Gson): BookApi {
         return Retrofit.Builder()
             .baseUrl("https://openlibrary.org")
-            .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .build()
