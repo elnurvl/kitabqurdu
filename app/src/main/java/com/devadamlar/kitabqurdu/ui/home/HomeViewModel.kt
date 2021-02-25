@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    val bookRepository: BookRepository
+    private val bookRepository: BookRepository
 ) : ViewModel() {
 
     var books: BehaviorSubject<List<Book>> = BehaviorSubject.createDefault(emptyList())

@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class FavoritesFragment : Fragment() {
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val favoritesViewModel: FavoritesViewModel by viewModels {
         viewModelFactory

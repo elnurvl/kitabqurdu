@@ -7,5 +7,6 @@ data class Book(
     val authorKey: List<String>?,
     val coverI: Int,
     val firstPublishYear: Int,
-    val editionCount: Int
+    val editionCount: Int,
+    val publisher: List<String>?
 )

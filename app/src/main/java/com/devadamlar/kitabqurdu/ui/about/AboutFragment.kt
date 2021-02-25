@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class AboutFragment : Fragment() {
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val aboutViewModel: AboutViewModel by viewModels {
         viewModelFactory
