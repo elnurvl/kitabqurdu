@@ -1,0 +1,134 @@
+{
+  "numFound": 2,
+  "start": 0,
+  "docs": [
+    {
+      "cover_i": 4853661,
+      "has_fulltext": false,
+      "title": "The Lord of the Rings",
+      "title_suggest": "The Lord of the Rings",
+      "type": "work",
+      "ebook_count_i": 0,
+      "edition_count": 1,
+      "key": "/works/OL14933438W",
+      "last_modified_i": 1547622765,
+      "cover_edition_key": "OL8821524M",
+      "first_publish_year": 2002,
+      "author_name": [
+        "Patrick Gardner"
+      ],
+      "id_goodreads": [
+        "54698"
+      ],
+      "publish_year": [
+        2002
+      ],
+      "author_key": [
+        "OL6916799A"
+      ],
+      "seed": [
+        "/books/OL8821524M",
+        "/works/OL14933438W",
+        "/authors/OL6916799A"
+      ],
+      "isbn": [
+        "9781586637903",
+        "1586637908"
+      ],
+      "edition_key": [
+        "OL8821524M"
+      ],
+      "publisher": [
+        "SparkNotes"
+      ],
+      "language": [
+        "eng"
+      ],
+      "text": [
+        "OL8821524M",
+        "9781586637903",
+        "1586637908",
+        "Patrick Gardner",
+        "OL6916799A",
+        "The Lord of the Rings",
+        "/works/OL14933438W",
+        "SparkNotes",
+        "The Lord of the Rings (Spark Notes)"
+      ],
+      "id_librarything": [
+        "8204903"
+      ],
+      "publish_date": [
+        "September 1, 2002"
+      ]
+    },
+    {
+      "cover_i": 149318,
+      "has_fulltext": false,
+      "title": "The Lord of the Rings",
+      "title_suggest": "The Lord of the Rings",
+      "type": "work",
+      "ebook_count_i": 0,
+      "edition_count": 1,
+      "key": "/works/OL7908921W",
+      "last_modified_i": 1546453713,
+      "cover_edition_key": "OL9776467M",
+      "first_publish_year": 2000,
+      "author_name": [
+        "Ted Nasmith"
+      ],
+      "publish_year": [
+        2000
+      ],
+      "author_key": [
+        "OL3266555A"
+      ],
+      "seed": [
+        "/books/OL9776467M",
+        "/works/OL7908921W",
+        "/authors/OL3266555A"
+      ],
+      "isbn": [
+        "9780261104037",
+        "0261104039"
+      ],
+      "edition_key": [
+        "OL9776467M"
+      ],
+      "language": [
+        "eng"
+      ],
+      "id_librarything": [
+        "786659"
+      ],
+      "id_goodreads": [
+        "15355"
+      ],
+      "contributor": [
+        "J. R. R. Tolkien (Creator)"
+      ],
+      "oclc": [
+        "57484284"
+      ],
+      "publisher": [
+        "Harpercollins Pub Ltd"
+      ],
+      "text": [
+        "OL9776467M",
+        "9780261104037",
+        "0261104039",
+        "Ted Nasmith",
+        "J. R. R. Tolkien (Creator)",
+        "57484284",
+        "OL3266555A",
+        "A Book of 20 Postcards (Postcard Books)",
+        "The Lord of the Rings",
+        "/works/OL7908921W",
+        "Harpercollins Pub Ltd"
+      ],
+      "publish_date": [
+        "May 2000"
+      ]
+    }
+  ]
+}

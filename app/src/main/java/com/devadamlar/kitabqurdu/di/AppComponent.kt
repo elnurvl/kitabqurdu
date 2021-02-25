@@ -8,7 +8,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ViewModelModule::class])
+@Component(modules = [AppModule::class])
 interface AppComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(homeFragment: HomeFragment)

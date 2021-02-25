@@ -2,8 +2,13 @@
   <dictionary name="elnur">
     <words>
       <w>devadamlar</w>
+      <w>ebook</w>
+      <w>goodreads</w>
+      <w>gson</w>
+      <w>harpercollins</w>
       <w>kitab</w>
       <w>kitabqurdu</w>
+      <w>librarything</w>
     </words>
   </dictionary>
 </component>
