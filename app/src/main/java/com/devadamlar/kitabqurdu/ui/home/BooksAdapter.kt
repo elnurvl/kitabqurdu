@@ -26,7 +26,7 @@ class BooksAdapter(val context: Context, private val listener: ItemClickListener
         holder.authors.text = book.authorName?.get(0)
         holder.publisher.text = book.publisher?.get(0)
         Picasso.get()
-            .load(context.getString(R.string.cover_api_url) + book.coverI + ".jpg")
+            .load(context.getString(R.string.cover_api_url) + book.coverI + "-S.jpg")
             .placeholder(R.drawable.progress_animation)
             .error(R.drawable.sample_cover)
             .into(holder.thumbnail)

@@ -58,7 +58,7 @@ class BookFragment : Fragment() {
                 Log.d("Book", it.toString())
                 titleText.text = it?.title
                 Picasso.get()
-                    .load(getString(R.string.cover_api_url) + it.coverI + ".jpg")
+                    .load(getString(R.string.cover_api_url) + it.coverI + "-M.jpg")
                     .placeholder(R.drawable.progress_animation)
                     .error(R.drawable.sample_cover)
                     .into(thumbnail)
