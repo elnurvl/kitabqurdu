@@ -23,7 +23,7 @@ class BooksAdapter(val context: Context, private val listener: ItemClickListener
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = books[position]
         holder.title.text = book.title
-        holder.authors.text = book.authorName?.joinToString(", ")
+        holder.authors.text = book.authorName?.get(0)
         holder.publisher.text = book.publisher?.get(0)
         Picasso.get()
             .load(context.getString(R.string.cover_api_url) + book.coverI + ".jpg")

@@ -36,5 +36,6 @@ class HomeFragmentTest : TestCase() {
         onView(withId(R.id.searchButton)).check(matches(isDisplayed()))
         onView(withId(R.id.recyclerView)).check(matches(isDisplayed()))
         onView(withId(R.id.progressBar)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.emptyText)).check(matches(not(isDisplayed())))
     }
 }

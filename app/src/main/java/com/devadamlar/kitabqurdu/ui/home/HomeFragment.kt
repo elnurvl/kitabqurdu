@@ -24,6 +24,7 @@ import com.devadamlar.kitabqurdu.MainActivity
 import com.devadamlar.kitabqurdu.R
 import com.devadamlar.kitabqurdu.models.Book
 import com.devadamlar.kitabqurdu.viewmodel.ViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
@@ -53,6 +54,7 @@ class HomeFragment : Fragment() {
         val searchButton: ImageButton = root.findViewById(R.id.searchButton)
         val recyclerView: RecyclerView = root.findViewById(R.id.recyclerView)
         val progressBar: ProgressBar = root.findViewById(R.id.progressBar)
+        val emptyText: TextView = root.findViewById(R.id.emptyText)
 
         val adapter = BooksAdapter(requireContext(), object : BooksAdapter.ItemClickListener {
             override fun onItemClicked(view: View, book: Book) {
@@ -73,13 +75,18 @@ class HomeFragment : Fragment() {
         searchButton.setOnClickListener {
             if (searchText.text.toString().isEmpty()) return@setOnClickListener
             (activity as MainActivity).hideKeyboard()
+            emptyText.visibility = View.GONE
+            adapter.books = emptyList()
+            adapter.notifyDataSetChanged()
             progressBar.visibility = View.VISIBLE
             homeViewModel.search(searchText.text.toString())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { result, error ->
                     progressBar.visibility = View.GONE
+                    if (result?.docs.isNullOrEmpty() && error == null) emptyText.visibility = View.VISIBLE
                     homeViewModel.books.onNext(result?.docs?: emptyList())
                     Log.d("Home", error?.message?: "No error")
+                    if (error != null) Snackbar.make(root, error.message.toString(), Snackbar.LENGTH_LONG).show()
                 }
         }
         return root
