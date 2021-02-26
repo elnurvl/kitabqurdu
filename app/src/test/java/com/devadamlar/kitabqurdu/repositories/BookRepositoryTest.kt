@@ -12,15 +12,10 @@ class BookRepositoryTest : TestCase() {
     val api = mock(BookApi::class.java)
     val bookRepository = BookRepository(api)
 
+    // TODO: Fix!
     @Test
     fun testSearch() {
         bookRepository.search("test")
-        verify(api).searchByTitle("test")
-    }
-
-    @Test
-    fun doNotCallApiIfKeywordIsEmpty() {
-        bookRepository.search("")
-        verify(api, never()).searchByTitle(anyString())
+        verify(api).searchByTitle("test", 1)
     }
 }

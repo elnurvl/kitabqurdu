@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.devadamlar.kitabqurdu.R
 import com.devadamlar.kitabqurdu.models.Book
 import com.squareup.picasso.Picasso
 
-class BooksAdapter(val context: Context, private val listener: ItemClickListener) : RecyclerView.Adapter<BooksAdapter.BookViewHolder>() {
-
-    var books: List<Book> = emptyList()
+class BooksAdapter(val context: Context, private val listener: ItemClickListener) : PagingDataAdapter<Book, BooksAdapter.BookViewHolder>(BOOK_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false)
@@ -21,22 +21,21 @@ class BooksAdapter(val context: Context, private val listener: ItemClickListener
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        val book = books[position]
-        holder.title.text = book.title
-        holder.authors.text = book.authorName?.get(0)
-        holder.publisher.text = book.publisher?.get(0)
-        Picasso.get()
-            .load(context.getString(R.string.cover_api_url) + book.coverI + "-S.jpg")
-            .placeholder(R.drawable.progress_animation)
-            .error(R.drawable.sample_cover)
-            .into(holder.thumbnail)
-        holder.itemView.setOnClickListener {
-            listener.onItemClicked(it, book)
+        val item = getItem(position)
+        item?.let { book ->
+            holder.title.text = book.title
+            holder.authors.text = book.authorName?.get(0)
+            holder.publisher.text = book.publisher?.get(0)
+            Picasso.get()
+                .load(context.getString(R.string.cover_api_url) + book.coverI + "-S.jpg")
+                .placeholder(R.drawable.progress_animation)
+                .error(R.drawable.sample_cover)
+                .into(holder.thumbnail)
+            holder.itemView.setOnClickListener {
+                listener.onItemClicked(it, book)
+            }
         }
-    }
 
-    override fun getItemCount(): Int {
-        return books.size
     }
 
     inner class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,5 +47,18 @@ class BooksAdapter(val context: Context, private val listener: ItemClickListener
 
     interface ItemClickListener {
         fun onItemClicked(view: View, book: Book)
+    }
+
+    companion object {
+        private val BOOK_COMPARATOR = object: DiffUtil.ItemCallback<Book>() {
+            override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
+                return oldItem.key == newItem.key
+            }
+
+            override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 }
