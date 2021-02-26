@@ -7,5 +7,5 @@ import retrofit2.http.Query
 
 interface BookApi {
     @GET("search.json")
-    fun searchByTitle(@Query("title") title:String): Single<SearchResponse>
+    fun searchByTitle(@Query("title") title:String, @Query("page") page: Int = 1): Single<SearchResponse>
 }

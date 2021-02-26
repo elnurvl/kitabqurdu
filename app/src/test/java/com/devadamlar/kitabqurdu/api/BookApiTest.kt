@@ -47,11 +47,11 @@ class BookApiTest {
     @Test
     fun testSearch() {
         enqueueResponse("search_result.json")
-        val results = bookApi.searchByTitle("test").blockingGet()
+        val results = bookApi.searchByTitle("test", 2).blockingGet()
         mockWebServer.takeRequest()
         assertThat(results.docs.size, `is`(2))
         assertEquals(2, results.numFound)
-        assertEquals("Patrick Gardner", results.docs?.get(0)?.authorName?.get(0))
+        assertEquals("Patrick Gardner", results.docs[0].authorName?.get(0))
     }
 
     private fun enqueueResponse(fileName: String, headers: Map<String, String> = emptyMap()) {
