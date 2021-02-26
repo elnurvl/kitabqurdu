@@ -59,6 +59,9 @@ class HomeFragment : Fragment() {
             BooksLoadStateAdapter { adapter.retry() },
             BooksLoadStateAdapter { adapter.retry() }
         )
+        homeViewModel.result
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe { adapter.submitData(lifecycle, it) }
         adapter.addLoadStateListener {
             recyclerView.isVisible = it.source.refresh is LoadState.NotLoading && adapter.itemCount != 0
             progressBar.isVisible = it.source.refresh is LoadState.Loading
@@ -85,9 +88,7 @@ class HomeFragment : Fragment() {
             (activity as MainActivity).hideKeyboard()
             homeViewModel.search(searchText.text.trim().toString())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    adapter.submitData(lifecycle, it)
-                }
+                .subscribe { adapter.submitData(lifecycle, it) }
         }
         return root
     }
