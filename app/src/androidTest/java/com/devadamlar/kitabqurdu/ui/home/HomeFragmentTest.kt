@@ -11,7 +11,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.devadamlar.kitabqurdu.R
-import com.devadamlar.kitabqurdu.utils.ViewModelUtil
 import junit.framework.TestCase
 import org.hamcrest.core.IsNot.not
 import org.junit.After
@@ -34,8 +33,8 @@ class HomeFragmentTest : TestCase() {
     fun visibilitiesAreCorrect() {
         onView(withId(R.id.searchText)).check(matches(isDisplayed()))
         onView(withId(R.id.searchButton)).check(matches(isDisplayed()))
-        onView(withId(R.id.recyclerView)).check(matches(isDisplayed()))
+        onView(withId(R.id.recyclerView)).check(matches(not(isDisplayed())))
         onView(withId(R.id.progressBar)).check(matches(not(isDisplayed())))
-        onView(withId(R.id.emptyText)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.emptyView)).check(matches(not(isDisplayed())))
     }
 }

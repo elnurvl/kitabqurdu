@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.devadamlar.kitabqurdu.App
 import com.devadamlar.kitabqurdu.R
-import com.devadamlar.kitabqurdu.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
 class AboutFragment : Fragment() {

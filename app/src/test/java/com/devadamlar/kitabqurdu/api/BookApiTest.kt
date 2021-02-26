@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import okio.Okio
 import okio.buffer
 import okio.source
 import org.hamcrest.CoreMatchers.`is`

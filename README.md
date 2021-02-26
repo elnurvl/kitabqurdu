@@ -11,11 +11,12 @@ Kitab Qurdu is a book search app. You can get information about more than 20 mil
 * The mockito cannot mock/spy final classes in androidTests.
 
 ### Future work
-* Broaden the fragment test coverage
-* Improve error messages
-* Implement pagination
-* Use data binding
-* Improve UI
+- [ ] Broaden the fragment test coverage
+- [ ] Improve error messages
+- [x] Implement pagination
+- [ ] Use data binding
+- [ ] Implement the back button on the toolbar
+- [ ] Improve UI
 
 ## Acknowledgements
 <div>Icon made by <a href="https://www.flaticon.com/authors/pongsakornred" title="pongsakornRed">pongsakornRed</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

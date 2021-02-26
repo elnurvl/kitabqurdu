@@ -6,12 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devadamlar.kitabqurdu.ActivityViewModel
@@ -19,6 +20,7 @@ import com.devadamlar.kitabqurdu.App
 import com.devadamlar.kitabqurdu.MainActivity
 import com.devadamlar.kitabqurdu.R
 import com.devadamlar.kitabqurdu.models.Book
+import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
@@ -47,24 +49,41 @@ class HomeFragment : Fragment() {
         val searchText: TextView = root.findViewById(R.id.searchText)
         val searchButton: ImageButton = root.findViewById(R.id.searchButton)
         val recyclerView: RecyclerView = root.findViewById(R.id.recyclerView)
+        val retryButton: Button = root.findViewById(R.id.retryButton)
+        val progressBar: ProgressBar = root.findViewById(R.id.progressBar)
+        val emptyView: TextView = root.findViewById(R.id.emptyView)
 
-        val adapter = BooksAdapter(requireContext(), object : BooksAdapter.ItemClickListener {
-            override fun onItemClicked(view: View, book: Book) {
-                Log.d("Home", "Selected book: ${book.key}")
-                activityViewModel.selectedBook.onNext(book)
-                goToBook()
-            }
-
-        })
-        recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = BooksAdapter(requireContext(), onBookClicked)
+        recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
+            BooksLoadStateAdapter { adapter.retry() },
+            BooksLoadStateAdapter { adapter.retry() }
+        )
+        adapter.addLoadStateListener {
+            recyclerView.isVisible = it.source.refresh is LoadState.NotLoading && adapter.itemCount != 0
+            progressBar.isVisible = it.source.refresh is LoadState.Loading
+            retryButton.isVisible = it.source.refresh is LoadState.Error
+            emptyView.isVisible = it.source.refresh is LoadState.NotLoading
+                    && adapter.itemCount == 0
+                    && !homeViewModel.currentKeyword.isNullOrEmpty()
 
+            val errorState = it.source.append as? LoadState.Error
+                ?: it.source.prepend as? LoadState.Error
+                ?: it.append as? LoadState.Error
+                ?: it.prepend as? LoadState.Error
+                ?: it.source.refresh as? LoadState.Error
+
+            errorState?.error?.localizedMessage?.let { message ->
+                Snackbar.make(root, message, Snackbar.LENGTH_LONG).show()
+            }
+        }
+
+        retryButton.setOnClickListener { adapter.retry() }
 
         searchButton.setOnClickListener {
-            // TODO: Show progressbar, "Not found" and error messages when necessary
-            if (searchText.text.toString().isEmpty()) return@setOnClickListener
+            if (searchText.text.toString().isBlank()) return@setOnClickListener
             (activity as MainActivity).hideKeyboard()
-            homeViewModel.search(searchText.text.toString())
+            homeViewModel.search(searchText.text.trim().toString())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     adapter.submitData(lifecycle, it)
@@ -73,7 +92,13 @@ class HomeFragment : Fragment() {
         return root
     }
 
-    fun goToBook() {
+    private fun goToBook() {
         findNavController().navigate(R.id.bookFragment)
+    }
+
+    private val onBookClicked: (Book)-> Unit = {
+        Log.d("Home", "Selected book: ${it.key}")
+        activityViewModel.selectedBook.onNext(it)
+        goToBook()
     }
 }

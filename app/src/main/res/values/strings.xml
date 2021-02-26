@@ -7,4 +7,6 @@
     <string name="publisher">Publisher:</string>
     <string name="cover_api_url">https://covers.openlibrary.org/b/id/</string>
     <string name="book_fragment_label">Book Details</string>
+    <string name="retry">Retry</string>
+    <string name="not_found">No result found</string>
 </resources>
